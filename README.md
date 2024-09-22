@@ -13,3 +13,4 @@ This repository contains practice projects and examples related to Django, a hig
 - **REST API**: Building simple RESTful APIs using Django REST framework.
 
 I am practicing and will add more features as I continue to learn.
+ 
