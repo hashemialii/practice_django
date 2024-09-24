@@ -3,11 +3,35 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from .models import Post, Comment
 from .forms import PostForm
 from django.views import generic
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import PostSerializer
 
 
+@api_view(['GET', 'POST'])
 def index(request):
+    # return HttpResponse('<h1>Welcome to Django</h1>')
 
-    return HttpResponse('<h1>Welcome to Django</h1>')
+    # print(request.data)
+    # return Response(dict(request.data))
+    # return Response(dict(request.data))
+    # print(foo)
+    # return Response({'name': 'Ali'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # pk = request.query_params.get('pk')
+    pk = request.data.get('pk')
+    print(request.data)
+    try:
+        p = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        return Response({'details': 'Post does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = PostSerializer(p)
+    # print(serializer)
+    # print('=' * 40)
+    # print(serializer.data)
+    return Response(serializer.data)
 
 
 def home(request):
