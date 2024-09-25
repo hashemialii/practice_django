@@ -195,20 +195,34 @@
 #     def delete(self, request, *args, **kwargs):
 #         return self.destroy(request, *args, **kwargs)
 
+#
+# from rest_framework import generics
+#
+# from .serializers import PostSerializer
+# from .models import Post
+#
+#
+# class PostListView(generics.ListCreateAPIView):
+#
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
+#
+#
+# class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
+#
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
 
-from rest_framework import generics
+
+from rest_framework import viewsets
 
 from .serializers import PostSerializer
 from .models import Post
 
 
-class PostListView(generics.ListCreateAPIView):
-
+class PostView(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
 
-class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
 
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
